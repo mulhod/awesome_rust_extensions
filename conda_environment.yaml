@@ -1,0 +1,7 @@
+dependencies:
+  - python >=3.8
+  - ipython
+  - setuptools >=49.5.0
+  - wheel
+  - setuptools-rust >=0.11.2
+  - toml

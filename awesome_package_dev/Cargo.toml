@@ -1,0 +1,13 @@
+[package]
+name = "awesome-rust-extension"
+version = "0.0.1"
+authors = ["mulhod <mulhodm@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+rayon = "1.0.2"
+pyo3 = { version = "0.11.1", features = ["extension-module"]}
+
+[lib]
+name = "awesome_rust_extension"
+crate-type = ["cdylib"]
