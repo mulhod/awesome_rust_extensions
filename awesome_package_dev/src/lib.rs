@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use pyo3::prelude::*;
 use pyo3::wrap_pyfunction;
 
@@ -6,25 +7,18 @@ fn hello_from_rust() {
     println!("Hello World from Rust!");
 }
 
-#[pyclass]
-struct Word {
-    #[pyo3(get, set)]
-    word: String,
-    #[pyo3(get, set)]
-    lemma: String
-}
-
-#[pymethods]
-impl Word {
-    #[new]
-    fn new(word: String, lemma: String) -> Self {
-        Word { word, lemma }
+#[pyfunction]
+fn count_words_rust(input_string: String) -> HashMap<String, u32> {
+    let mut word_counts: HashMap<String, u32> = HashMap::new();
+    for word in input_string.to_lowercase().split_whitespace() {
+        *word_counts.entry(word.into()).or_insert(0u32) += 1u32;
     }
+    word_counts
 }
 
 #[pymodule]
 fn awesome_rust_extension(_py: Python<'_>, m: &PyModule) -> PyResult<()> {
     m.add_wrapped(wrap_pyfunction!(hello_from_rust))?;
-    m.add_class::<Word>()?;
+    m.add_wrapped(wrap_pyfunction!(count_words_rust))?;
     Ok(())
 }
