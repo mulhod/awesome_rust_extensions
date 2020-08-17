@@ -1,4 +1,6 @@
 use std::collections::HashMap;
+use std::fs::File;
+use std::io::Read;
 use pyo3::prelude::*;
 use pyo3::wrap_pyfunction;
 
@@ -8,7 +10,16 @@ fn hello_from_rust() {
 }
 
 #[pyfunction]
-fn count_words_rust(input_string: String) -> HashMap<String, u32> {
+fn count_words_rust(input_path: String) -> HashMap<String, u32> {
+    let mut input_string = String::new();
+    match File::open(input_path) {
+        Ok(mut file) => {
+            file.read_to_string(&mut input_string).unwrap();
+        },
+        Err(error) => {
+            println!("Error opening file {}", error);
+        },
+    }
     let mut word_counts: HashMap<String, u32> = HashMap::new();
     for word in input_string.to_lowercase().split_whitespace() {
         *word_counts.entry(word.into()).or_insert(0u32) += 1u32;
