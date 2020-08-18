@@ -12,14 +12,10 @@ fn hello_from_rust() {
 #[pyfunction]
 fn count_words_rust(input_path: String) -> HashMap<String, u32> {
     let mut input_string = String::new();
-    match File::open(input_path) {
-        Ok(mut file) => {
-            file.read_to_string(&mut input_string).unwrap();
-        },
-        Err(error) => {
-            println!("Error opening file {}", error);
-        },
-    }
+    match File::open(&input_path) {
+        Ok(mut file) => file.read_to_string(&mut input_string).unwrap(),
+        Err(error) => panic!("Error opening file {}: {}", &input_path, error)
+    };
     let mut word_counts: HashMap<String, u32> = HashMap::new();
     for word in input_string.to_lowercase().split_whitespace() {
         *word_counts.entry(word.into()).or_insert(0u32) += 1u32;
