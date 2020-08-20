@@ -2,3 +2,4 @@
 target
 __pycache__
 awesome_package.egg-info
+*.so
