@@ -51,8 +51,8 @@ while getopts ":cbha" opt; do
             ;;
         \? )
             echo "Invalid option: -${OPTARG}"
-        	usage
-        	exit 1
+            usage
+            exit 1
             ;;
     esac
 done
