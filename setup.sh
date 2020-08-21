@@ -2,6 +2,25 @@
 
 set -eu
 
+function usage() {
+	cat << EOF
+Build a Conda environment and install awesome-package into it.
+
+Usage:
+
+./setup.sh [-b] [-c] [-a] [-h]
+
+Flags
+-----
+-h    Print out usage information
+-c    Build Conda environment (or update one if it exists)
+-b    Install Python package including Rust extensions
+-a    Equivalent to using both -b and -c
+
+EOF
+
+}
+
 if [[ ${OSTYPE:-os} == *darwin* ]]; then
     # Implementation of `readlink` in macOS differs from Linux's
     function readlink() {
@@ -14,7 +33,7 @@ ENV_DIR="${THIS_DIR}/.env"
 
 INSTALL_OR_UPDATE=false
 BUILD=false
-while getopts ":cb" opt; do
+while getopts ":cbha" opt; do
     case ${opt} in
         c )
         	INSTALL_OR_UPDATE=true
@@ -22,8 +41,17 @@ while getopts ":cb" opt; do
         b )
         	BUILD=true
             ;;
+        a )
+            INSTALL_OR_UPDATE=true
+            BUILD=true
+            ;;
+        h )
+            usage
+            exit 0
+            ;;
         \? )
-        	echo "Usage: bash setup.sh [-c] [-b]"
+            echo "Invalid option: -${OPTARG}"
+        	usage
         	exit 1
             ;;
     esac
