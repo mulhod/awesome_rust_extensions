@@ -36,10 +36,10 @@ BUILD=false
 while getopts ":cbha" opt; do
     case ${opt} in
         c )
-        	INSTALL_OR_UPDATE=true
-          	;;
+            INSTALL_OR_UPDATE=true
+            ;;
         b )
-        	BUILD=true
+            BUILD=true
             ;;
         a )
             INSTALL_OR_UPDATE=true
