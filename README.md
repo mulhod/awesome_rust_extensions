@@ -1,10 +1,10 @@
 # awesome_rust_extensions
 
 ## Description
-- Create some trivial Rust extensions for Python included in the Python package [awesome-package](awesome_package_dev/awesome_package)
+- Create some trivial Rust extensions for Python included in the Python package [`awesome-package`](awesome_package_dev/awesome_package)
 - Rust extensions include `hello_from_rust` and `count_words_rust`.
-- The Rust extensions reside under [src/lib.rs](awesome_package_dev/src/lib.rs)
-- Corresponding Python versions: `hello_from_python` and `count_words_python`.
+- The Rust extensions reside under [`src/lib.rs`](awesome_package_dev/src/lib.rs)
+- Corresponding Python-based versions (for comparison): `hello_from_python` and `count_words_python`.
 
 ## Installation
 - Run `make` to build a Conda environment and install the Python package (thereby building the Rust extensions).
@@ -16,4 +16,6 @@
 ```python
 from awesome_package import (hello_from_rust, count_words_rust,
                              hello_from_python, count_words_python)
+%timeit count_words_rust("<<path_to_file>>")
+%timeit count_words_python("<<path_to_file>>")
 ```
