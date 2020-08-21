@@ -14,7 +14,7 @@
 - After installation, activate the Conda environment via e.g. `conda activate ./.env`.
 - Run `ipython` to start an IPython session and import from `awesome_package`:
 ```python
-from awesome_package import count_words_rust, count_words_python)
+from awesome_package import count_words_rust, count_words_python
 %timeit count_words_rust("<<path_to_file>>")
 %timeit count_words_python("<<path_to_file>>")
 ```
